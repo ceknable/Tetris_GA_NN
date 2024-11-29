@@ -152,4 +152,4 @@ def player(gameboard,brain, loud = False):
         output = layer4 # define final output
         
     output = np.round(output/np.sum(output)*100,0) # normalize output    
-    print(output)
+    return(output)
