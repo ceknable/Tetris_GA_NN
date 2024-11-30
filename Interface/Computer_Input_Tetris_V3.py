@@ -74,9 +74,8 @@ def TETRIS(brain, gameboard):
             
             # Perform the action
             observation, reward, terminated, truncated, info = env.step(action)
-            # Get the board as a flattened array to feed back to player_V2 function
-            gameboard = flatten_board(observation)
-            # Store the height, 
+            # Get the flattened board for this step, height and holes histroy for the game. 
+            gameboard, height_hist, holes_hist = featurization(observation, env)
     
         # Game over
         print("Game Over!")
