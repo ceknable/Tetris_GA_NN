@@ -14,7 +14,7 @@ def TETRIS(brain, gameboard):
     TIInput: A 1x6 array where all but one entries are 0. The non-zero position defines the action to take. 
              TInput = [Left,Right,Down,Rotate,SDown,Swap]
     brain: The NN that takes in the current board state and outputs an action.
-    gameboard: Initial game board with the first block moved down. 
+    gameboard: Initial game board with the first block moved down. Flattened 1
   '''
     
     if __name__ == "__main__":
@@ -56,7 +56,7 @@ def TETRIS(brain, gameboard):
                     action = env.unwrapped.actions.hard_drop
                 elif TInput[5]:
                     action = env.unwrapped.actions.swap
-                elif key == ord("r"):
+                elif key == ord("r"): # Pressing "r" still resets the game. 
                     env.reset(seed=42)
                     break
                 count = count+1
@@ -74,6 +74,9 @@ def TETRIS(brain, gameboard):
             
             # Perform the action
             observation, reward, terminated, truncated, info = env.step(action)
+            # Get the board as a flattened array to feed back to player_V2 function
+            gameboard = flatten_board(observation)
+            # Store the height, 
     
         # Game over
         print("Game Over!")
