@@ -10,8 +10,8 @@ def Rand_CRs():
     ''' 
     This code generates 4 chromosomes for the initialization of a Neural Network
     Chromosome (CR) format
-    CR1 = [0 or 1, number of neurons, 0 or 1, number of neurons, 0 or 1, number of neurons]
-    CR2-4 = [ThetaMatrix]
+    CR0 = [0 or 1, number of neurons, 0 or 1, number of neurons, 0 or 1, number of neurons]
+    CR1-4 = [ThetaMatrix]
     '''
     # Initialize Vectors
     CR0 = np.zeros(6)
