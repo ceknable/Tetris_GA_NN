@@ -1,7 +1,7 @@
 """
 Created on Mon Nov 30 15:38 2024
 
-@author: KingRamen
+@author: KingRamenXIV
 """
 import cv2
 import gymnasium as gym
