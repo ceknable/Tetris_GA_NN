@@ -8,24 +8,34 @@ import gymnasium as gym
 import time
 from tetris_gymnasium.envs import Tetris
 
-def TETRIS(brain, gameboard):
+def TETRIS_V2(brain, gameboard):
   '''
   Inputs: 
+    brain: The NN that takes in the current board state and outputs an action.
+    gameboard: Initial game board with the first block moved down. Flattened array of 1 and 0. 
+
+  Other: 
     TIInput: A 1x6 array where all but one entries are 0. The non-zero position defines the action to take. 
              TInput = [Left,Right,Down,Rotate,SDown,Swap]
-    brain: The NN that takes in the current board state and outputs an action.
-    gameboard: Initial game board with the first block moved down. Flattened 1
+
+  Return: 
+    gameboard: The final gameboard at game over
+    height_hist: The history of the column heights over every step of the game
+    holes_hist: The history of the number of holes in each column over every step of the game. 
+    
+    A "game over" message is printed 
+    
   '''
     
     if __name__ == "__main__":
-        ## The following lines were moved to the Initialize_Tetris function
+        ## The following lines were moved to the Initialize_Tetris function START
         # # Create an instance of Tetris
         # env = gym.make("tetris_gymnasium/Tetris", render_mode="human")
         # env.reset(seed=42)
         
         # # Main game loop
         # terminated = False
-        ##
+        ## END
         while not terminated:
             # Render the current state of the game as text
             env.render()
@@ -79,3 +89,5 @@ def TETRIS(brain, gameboard):
     
         # Game over
         print("Game Over!")
+
+return gameboard, height_hist, holes_hist
