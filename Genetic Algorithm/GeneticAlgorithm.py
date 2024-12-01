@@ -7,9 +7,12 @@ Forked from cknable and ChatGPT "Ex_GA_GPT_V0.py" with adjustments
 # Import packages
 from Featurization import featurization
 from Interface import Computer_Input_Tetris_V3 as computer
-from Neural Network
+from Neural_Network import NeuralNet as 
+from Neural_Newtork import Rand_CRs
+from Initialize_Board import initialize_board
 
 import random
+import numpy as np
 
 def GA(): 
   '''
@@ -25,31 +28,48 @@ def GA():
   Other: 
   '''
 
-## 1. Simulating the game
-# Generate random chromosomes to make the brains
-rand_DNA = Rand_CRs
+# Function to simulate the game for a single brain and calculate fitness
+def simulate_brain(chromosome):
+    # Create the brain from the chromosome
+    brain = NeuralNet.create(chromosome)
+    
+    # Initialize the game
+    gameboard, env = initialize_board()
+    
+    # Play the game
+    gameboard, height_hist, holes_hist = computer.TETRIS_V2(brain, gameboard)
+    
+    # Fitness Test
+    avg_height = np.average(height_hist[-1, :])  # Final average column height
+    holes = holes_hist[-1]  # Final number of holes
+    
+    # Fitness criterion: lower is better
+    fitness = avg_height + holes
+    
+    return fitness
 
+## 3. Compare Brains
+# Sort brains by fitness (ascending order: lowest fitness first)
+brains.sort(key=lambda x: x[1])
 
-# Function to maximize
-def fitness_function(score):
-    return score**2
+# Select the two parent brains with the lowest fitness criteria
+best_brains = brains[:2]
+# Extract the DNAs of the two brains
+best_dnas = [dna for dna, fitness in best_brains]
 
-# Generate an initial population
-def generate_population(size, lower_bound, upper_bound):
-    return [random.uniform(lower_bound, upper_bound) for _ in range(size)]
+# Print or use the best brains as needed
+if LOUD = True
+  print("Two best brains:")
+  for idx, (dna, fitness) in enumerate(best_brains, start=1):
+      print(f"Brain {idx}: Fitness = {fitness}")
 
-# Select parents based on fitness (roulette wheel selection)
-def select_parents(population, fitnesses):
-    total_fitness = sum(fitnesses)
-    selection_probs = [f / total_fitness for f in fitnesses]
-    return random.choices(population, weights=selection_probs, k=2)
-
-# Crossover (single-point)
+# Crossover the DNAs (single-point)
 def crossover(parent1, parent2):
     alpha = random.uniform(0, 1)
     return alpha * parent1 + (1 - alpha) * parent2
 
-# Mutation (small random change)
+
+# Mutation in DNA (small random change) 
 def mutate(individual, mutation_rate, lower_bound, upper_bound):
     if random.random() < mutation_rate:
         individual += random.uniform(-1, 1)
@@ -59,9 +79,19 @@ def mutate(individual, mutation_rate, lower_bound, upper_bound):
 
 # Genetic Algorithm
 def genetic_algorithm(fitness_function, lower_bound, upper_bound, population_size, generations, mutation_rate):
-    # Initialize population
-    population = generate_population(population_size, lower_bound, upper_bound)
+    ## 1. Decision making criteria
+    # No decision making criteria in this case. The brain does not "think" about it's action it just acts. 
+  
+    ## 2. Simulating the game
+    # Generate an initial population of brains
+    num_brains = population_size
+    brains = []  # List to store chromosomes and fitness criteria
 
+    for _ in range(num_brains):
+      rand_DNA = Rand_CRs()  # Generate random chromosomes
+      fitness = simulate_brain(rand_DNA)  # Simulate the game and calculate fitness
+      brains.append((rand_DNA, fitness))  # Store chromosome and fitness as a tuple
+  
     for generation in range(generations):
         # Evaluate fitness
         fitnesses = [fitness_function(ind) for ind in population]
