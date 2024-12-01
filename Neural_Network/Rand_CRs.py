@@ -15,7 +15,7 @@ def Rand_CRs():
     '''
     # Initialize Vectors
     CR0 = np.zeros(6)
-    CR1 = np.zeros([30,200])
+    CR1 = np.zeros([30,201])
     CR2 = np.zeros([30,31])
     CR3 = CR2
     CR4 = np.zeros([6,31])
