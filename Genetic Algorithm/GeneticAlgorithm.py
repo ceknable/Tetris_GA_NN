@@ -4,6 +4,11 @@ Created on Mon Nov 30 15:38 2024
 @author: KingRamenXIV. 
 Forked from cknable and ChatGPT "Ex_GA_GPT_V0.py" with adjustments
 """
+# Import packages
+from Featurization import featurization
+from Interface import Computer_Input_Tetris_V3 as computer
+from Neural Network
+
 import random
 
 def GA(): 
