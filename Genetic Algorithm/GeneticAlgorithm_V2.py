@@ -34,7 +34,6 @@ def simulate_brain(chromosome):
     return fitness
 
 
-# Function to select parents using tournament selection
 def select_parents(population, fitnesses, k=4):
     """Select two distinct parents using tournament selection."""
     # Create a zipped population for easy handling, pair chromosomes and their fitness
@@ -42,13 +41,16 @@ def select_parents(population, fitnesses, k=4):
     
     # Create a tournament with k random individuals from the available population
     candidates = random.sample(pop_with_fitness, k)
-    # Sort the candidates by fitness in ascending order
-    candidates = candidates[1].sort(key = lambda x: x[1])
-    parent1 = candidates[-1][1] # Take only chromosome of highest fintess brain
-    parent2 = candidates[-2][1] # Take only chromosome of second highest fitness brain
+    
+    # Sort the candidates by fitness in descending order (higher fitness is better)
+    candidates.sort(key=lambda x: x[1], reverse=True)
+    print(candidates)
+    
+    # Select the two best parents
+    parent1 = candidates[0][0]  # Chromosome of the highest fitness
+    parent2 = candidates[1][0]  # Chromosome of the second highest fitness
     
     return parent1, parent2
-
 
 # Function to perform crossover between two parents
 import numpy as np
@@ -85,7 +87,6 @@ def crossover(parent1, parent2):
         child.append(child_segment.tolist())
 
     return child
-
 
 
 # Function to mutate chromosomes 1-4
