@@ -25,12 +25,12 @@ def simulate_brain(chromosome):
     """Simulate Tetris for a given chromosome and return its fitness."""
     brain = NeuralNet.create(chromosome)
     gameboard, env = initialize_board()
-    gameboard, height_hist, holes_hist = computer.TETRIS_V2(brain, gameboard)
+    gameboard, height_hist, holes_hist, total_score = computer.TETRIS_V2(brain, gameboard, env)
 
     # Fitness Test
-    avg_height = np.average(height_hist[-1, :])  # Final average column height
+    #avg_height = np.average(height_hist[-1, :])  # Final average column height
     holes = holes_hist[-1]  # Final number of holes
-    fitness = avg_height + holes  # Lower fitness is better
+    fitness = total_score - holes  # Lower fitness is better
     return fitness
 
 
