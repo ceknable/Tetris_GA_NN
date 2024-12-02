@@ -65,7 +65,7 @@ def crossover(parent1, parent2):
     return(child1, child2)
 
 # Function to mutate chromosomes 1-4
-def mutate14(chromosome, mutation_rate, lower_bound, upper_bound):
+def mutate14(chromosome, mutation_rate, lower_bound = .01, upper_bound = .1):
     """Apply mutation to a chromosome."""
     for i in range(len(chromosome)):
         if random.random() < mutation_rate:
@@ -74,7 +74,7 @@ def mutate14(chromosome, mutation_rate, lower_bound, upper_bound):
     return chromosome
 
 # Function to mutate chromosome 0
-def mutate0(chromosome, mutation_rate, lower_bound, upper_bound):
+def mutate0(chromosome, mutation_rate, lower_bound = 4, upper_bound= 30):
     """Apply mutation to a chromosome. Lower bound should be 4 and upper bound should be 30"""
     for i in range(1, len(chromosome)):
         if random.random() < mutation_rate:
@@ -88,12 +88,19 @@ def mutate0(chromosome, mutation_rate, lower_bound, upper_bound):
                 chromosome[i] = max(min(chromosome[i], upper_bound), lower_bound)  # Keep within bounds
     return chromosome
 
+def mutate(child, zerorate, onefourrate):
+    child[0] = mutate0(child[0], zerorate)
+    for i in range(1, 5):
+        child[i] = mutate14(child[i], onefourrate)
+    return chromosome
+
 # Genetic Algorithm
-def genetic_algorithm(population_size, generations, mutation_rate, lower_bound, upper_bound):
+def genetic_algorithm(population_size, generations, mutation_rate_0, mutation_rate_14):
     """Run the genetic algorithm."""
     # Step 1: Create initial population
     population = create_initial_population(population_size)
-
+    genchamps = [] # list which will hold the best brain of each genertion and the corresponding fitness- index using [gen][0 for brain, 1 for fitness]
+    
     for generation in range(generations):
         # Step 2: Simulate each brain and calculate fitness
         fitnesses = [simulate_brain(chromosome) for chromosome in population]
@@ -107,8 +114,8 @@ def genetic_algorithm(population_size, generations, mutation_rate, lower_bound, 
             child1 = crossover(parent1, parent2)
             child2 = crossover(parent2, parent1)
             # Mutate
-            child1 = mutate(child1, mutation_rate, lower_bound, upper_bound)
-            child2 = mutate(child2, mutation_rate, lower_bound, upper_bound)
+            child1 = mutate(child1, mutation_rate_0, mutation_rate_14)
+            child2 = mutate(child2, mutation_rate_0, mutation_rate_14)
             # Add children to the new population
             new_population.extend([child1, child2])
 
@@ -119,20 +126,20 @@ def genetic_algorithm(population_size, generations, mutation_rate, lower_bound, 
         best_idx = np.argmin(fitnesses)
         best_individual = population[best_idx]
         best_fitness = fitnesses[best_idx]
+        genchamps.append([bestindivudal, best_fitness])
         print(f"Generation {generation + 1}: Best Fitness = {best_fitness}")
 
     # Return the best individual and its fitness
     best_idx = np.argmin(fitnesses)
-    return population[best_idx], fitnesses[best_idx]
+    return population[best_idx], fitnesses[best_idx], genchamps
 
 
 # Parameters
-lower_bound = -10
-upper_bound = 10
-population_size = 20
+population_size = 10
 generations = 30
-mutation_rate = 0.1
+mutation_rate_0 = 0.05
+mutation_rate_14 = 0.1
 
 # Run the algorithm
-best_brain, best_fitness = genetic_algorithm(population_size, generations, mutation_rate, lower_bound, upper_bound)
+best_brain, best_fitness, genchamps = genetic_algorithm(population_size, generations, mutation_rate_0, mutation_rate_14)
 print(f"\nBest brain: {best_brain}, Fitness: {best_fitness}")
