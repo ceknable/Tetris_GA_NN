@@ -25,7 +25,9 @@ def TETRIS_V2(brain, gameboard, env):
     A "game over" message is printed 
     
   '''
-    
+
+    #Initialize total score
+    total_score = 0
     if __name__ == "__main__":
         ## The following lines were moved to the Initialize_Tetris function START
         # # Create an instance of Tetris
@@ -35,6 +37,8 @@ def TETRIS_V2(brain, gameboard, env):
         # # Main game loop
         # terminated = False
         ## END
+
+        
         while not terminated:
             # Render the current state of the game as text
             env.render()
@@ -71,10 +75,13 @@ def TETRIS_V2(brain, gameboard, env):
             
             # Perform the action
             observation, reward, terminated, truncated, info = env.step(action)
+
+            #Update the score:
+            total_score += reward
             # Get the flattened board for this step, height and holes histroy for the game. 
             gameboard, height_hist, holes_hist = featurization(observation, env)
     
         # Game over
         print("Game Over!")
 
-return gameboard, height_hist, holes_hist
+return gameboard, height_hist, holes_hist, total_score
