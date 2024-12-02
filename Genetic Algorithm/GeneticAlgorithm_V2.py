@@ -11,7 +11,7 @@ from Featurization import featurization
 from Interface import Computer_Input_Tetris_V3 as computer
 from Neural_Network import NeuralNet
 from Neural_Network import Rand_CRs
-from Initialize_Board import initialize_board
+from Initialize_Board import Initialize_board
 
 
 # Function to create the initial population of brains
