@@ -5,6 +5,7 @@ Created on Sat Nov 30 19:59 2024
 """
 import gymnasium as gym
 from Featurization/featurization import featurization
+import random
 
 def initialize_board():
     ''' 
@@ -18,8 +19,10 @@ def initialize_board():
     
     # Create an instance of Tetris
     env = gym.make("tetris_gymnasium/Tetris", render_mode="human")
-    #env.reset(seed=42) # Fixed Seed
-    env.reset()
+
+    #Create random integer to reset the seed and return
+    rand_seed = random.randint(0,100)
+    env.reset(rand_seed=42) 
     
     terminated = False
     # Move the first block down one cell
@@ -29,4 +32,4 @@ def initialize_board():
     # Get flattened board to feed to TETRIS
     gameboard, height, holes = featurize(observation)
 
-    return gameboard, env
+    return gameboard, env, rand_seed
