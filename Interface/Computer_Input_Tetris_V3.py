@@ -42,13 +42,9 @@ def TETRIS_V2(brain, gameboard):
             
             # Reset parameters 
             action = None
-            count = 0
-            time = 0
+
           
             while time == 0 and action == None:
-                key = cv2.waitKey(1)
-                
-                time.sleep(1)  # 200 ms is 0.2 seconds
 
                 # Get action input from brain
                 action_prob = player_V2(gameboard, brain) # Output from sigmoid function
@@ -69,9 +65,7 @@ def TETRIS_V2(brain, gameboard):
                 elif key == ord("r"): # Pressing "r" still resets the game. 
                     env.reset(seed=42)
                     break
-                count = count+1
-                if count == 67:
-                    time = 1
+
                 
                 if (
                     cv2.getWindowProperty(env.unwrapped.window_name, cv2.WND_PROP_VISIBLE)
