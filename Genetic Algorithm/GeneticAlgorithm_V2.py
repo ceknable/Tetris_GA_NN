@@ -24,7 +24,7 @@ def create_initial_population(population_size):
 def simulate_brain(chromosome):
     """Simulate Tetris for a given chromosome and return its fitness."""
     brain = NeuralNet.create(chromosome)
-    gameboard, env = initialize_board()
+    gameboard, env, rand_seed = initialize_board()
     gameboard, height_hist, holes_hist, total_score = computer.TETRIS_V2(brain, gameboard, env)
 
     # Fitness Test
