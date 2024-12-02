@@ -21,7 +21,7 @@ def initialize_board():
     
     terminated = False
     # Move the first block down one cell
-    action = env.unrwappped.actions.move_down
+    action = env.unwrapped.actions.move_down
     observation, reward, terminated, truncated, info = env.step(action)
 
     # Get flattened board to feed to TETRIS
