@@ -92,7 +92,7 @@ def mutate(child, zerorate, onefourrate):
     child[0] = mutate0(child[0], zerorate)
     for i in range(1, 5):
         child[i] = mutate14(child[i], onefourrate)
-    return chromosome
+    return child
 
 # Genetic Algorithm
 def genetic_algorithm(population_size, generations, mutation_rate_0, mutation_rate_14):
@@ -126,7 +126,7 @@ def genetic_algorithm(population_size, generations, mutation_rate_0, mutation_ra
         best_idx = np.argmin(fitnesses)
         best_individual = population[best_idx]
         best_fitness = fitnesses[best_idx]
-        genchamps.append([bestindivudal, best_fitness])
+        genchamps.append([best_indivudal, best_fitness])
         print(f"Generation {generation + 1}: Best Fitness = {best_fitness}")
 
     # Return the best individual and its fitness
