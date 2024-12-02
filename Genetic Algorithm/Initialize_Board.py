@@ -16,7 +16,8 @@ def initialize_board():
     
     # Create an instance of Tetris
     env = gym.make("tetris_gymnasium/Tetris", render_mode="human")
-    env.reset(seed=42) # Can change the seed
+    #env.reset(seed=42) # Fixed Seed
+    env.reset()
     
     terminated = False
     # Move the first block down one cell
