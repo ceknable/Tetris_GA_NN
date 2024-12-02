@@ -95,15 +95,29 @@ def crossover(parent1, parent2):
 
 
 
-# Function to mutate a chromosome
-def mutate(chromosome, mutation_rate, lower_bound, upper_bound):
+# Function to mutate chromosomes 1-4
+def mutate14(chromosome, mutation_rate, lower_bound, upper_bound):
     """Apply mutation to a chromosome."""
     for i in range(len(chromosome)):
         if random.random() < mutation_rate:
-            chromosome[i] += random.uniform(-1, 1)
+            chromosome[i] += random.uniform(-.02, .02)
             chromosome[i] = max(min(chromosome[i], upper_bound), lower_bound)  # Keep within bounds
     return chromosome
 
+# Function to mutate chromosome 0
+def mutate0(chromosome, mutation_rate, lower_bound, upper_bound):
+    """Apply mutation to a chromosome. Lower bound should be 4 and upper bound should be 30"""
+    for i in range(len(chromosome)):
+        if random.random() < mutation_rate:
+            if (i%2 == 0):
+                if chromosome[i] ==1:
+                    chromosome[i] = 0
+                else:
+                    chromosome[i] =1
+            else:
+                chromosome[i] += random.randint(1, 10)
+                chromosome[i] = max(min(chromosome[i], upper_bound), lower_bound)  # Keep within bounds
+    return chromosome
 
 # Genetic Algorithm
 def genetic_algorithm(population_size, generations, mutation_rate, lower_bound, upper_bound):
