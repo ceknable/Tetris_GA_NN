@@ -5,10 +5,9 @@ Created on Mon Nov 30 15:38 2024
 """
 import cv2
 import gymnasium as gym
-import time
 from tetris_gymnasium.envs import Tetris
 
-def TETRIS_V2(brain, gameboard):
+def TETRIS_V2(brain, gameboard, env):
   '''
   Inputs: 
     brain: The NN that takes in the current board state and outputs an action.
@@ -42,10 +41,10 @@ def TETRIS_V2(brain, gameboard):
             
             # Reset parameters 
             action = None
-
           
-            while time == 0 and action == None:
+            while action == None:
 
+              
                 # Get action input from brain
                 action_prob = player_V2(gameboard, brain) # Output from sigmoid function
                 TInput = max_action(action_prob) # 1x6 array. Only one element will be 1. Everything else is 0. 
@@ -62,19 +61,13 @@ def TETRIS_V2(brain, gameboard):
                     action = env.unwrapped.actions.hard_drop
                 elif TInput[5]:
                     action = env.unwrapped.actions.swap
-                elif key == ord("r"): # Pressing "r" still resets the game. 
-                    env.reset(seed=42)
-                    break
 
-                
                 if (
                     cv2.getWindowProperty(env.unwrapped.window_name, cv2.WND_PROP_VISIBLE)
                     == 0
                 ):
                     sys.exit()
             
-            if action == None:
-                action = env.unwrapped.actions.move_down
             
             # Perform the action
             observation, reward, terminated, truncated, info = env.step(action)
