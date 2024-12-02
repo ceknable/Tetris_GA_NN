@@ -3,7 +3,7 @@ Created on Sat Nov 30 19:59 2024
 
 @author: KingRamenXIV
 """
-
+import gymnasium as gym
 def initialize_board():
     ''' 
     Function that initializes the tetris board. 
