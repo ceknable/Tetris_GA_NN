@@ -30,7 +30,7 @@ def simulate_brain(chromosome):
     # Fitness Test
     #avg_height = np.average(height_hist[-1, :])  # Final average column height
     holes = holes_hist[-1]  # Final number of holes
-    fitness = total_score - holes  # Lower fitness is better
+    fitness = total_score - holes  # Higher fitness is better
     return fitness
 
 
@@ -40,7 +40,9 @@ def select_parents(population, fitnesses, k=4):
     def tournament_selection(available_population):
         # Create a tournament with k random individuals from the available population
         candidates = random.sample(available_population, k)
-        # Select the individual with the best fitness (lower is better)
+        # Sort the candidates by fitness in ascending order
+        candidates = candidates.sort(key = lambda x: x[1])
+        
         return min(candidates, key=lambda x: x[1])[0]  # Return only the chromosome
 
     # Create a zipped population for easy handling
