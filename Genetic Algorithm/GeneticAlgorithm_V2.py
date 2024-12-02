@@ -37,25 +37,16 @@ def simulate_brain(chromosome):
 # Function to select parents using tournament selection
 def select_parents(population, fitnesses, k=4):
     """Select two distinct parents using tournament selection."""
-    def tournament_selection(available_population):
-        # Create a tournament with k random individuals from the available population
-        candidates = random.sample(available_population, k)
-        # Sort the candidates by fitness in ascending order
-        candidates = candidates.sort(key = lambda x: x[1])
-        
-        return min(candidates, key=lambda x: x[1])[0]  # Return only the chromosome
-
-    # Create a zipped population for easy handling
+    # Create a zipped population for easy handling, pair chromosomes and their fitness
     pop_with_fitness = list(zip(population, fitnesses))
-
-    # Select the first parent
-    parent1 = tournament_selection(pop_with_fitness)
-    # Remove parent1 from the population
-    pop_with_fitness = [pair for pair in pop_with_fitness if pair[0] != parent1]
-
-    # Select the second parent from the remaining individuals
-    parent2 = tournament_selection(pop_with_fitness)
-
+    
+    # Create a tournament with k random individuals from the available population
+    candidates = random.sample(pop_with_fitness, k)
+    # Sort the candidates by fitness in ascending order
+    candidates = candidates[1].sort(key = lambda x: x[1])
+    parent1 = candidates[-1][1] # Take only chromosome of highest fintess brain
+    parent2 = candidates[-2][1] # Take only chromosome of second highest fitness brain
+    
     return parent1, parent2
 
 
