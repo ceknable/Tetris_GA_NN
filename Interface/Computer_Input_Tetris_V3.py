@@ -66,12 +66,6 @@ def TETRIS_V2(brain, gameboard, env):
                 elif TInput[5]:
                     action = env.unwrapped.actions.swap
 
-                if (
-                    cv2.getWindowProperty(env.unwrapped.window_name, cv2.WND_PROP_VISIBLE)
-                    == 0
-                ):
-                    sys.exit()
-            
             
             # Perform the action
             observation, reward, terminated, truncated, info = env.step(action)
