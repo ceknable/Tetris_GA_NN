@@ -109,7 +109,7 @@ def mutate14(chromosome, mutation_rate, lower_bound, upper_bound):
 # Function to mutate chromosome 0
 def mutate0(chromosome, mutation_rate, lower_bound, upper_bound):
     """Apply mutation to a chromosome. Lower bound should be 4 and upper bound should be 30"""
-    for i in range(len(chromosome)):
+    for i in range(1, len(chromosome)):
         if random.random() < mutation_rate:
             if (i%2 == 0):
                 if chromosome[i] ==1:
