@@ -54,40 +54,15 @@ def select_parents(population, fitnesses, k=4):
 
 # Function to perform crossover between two parents
 import numpy as np
-
 def crossover(parent1, parent2):
-    """
-    Perform crossover between two parents using NumPy for efficient matrix operations,
-    ensuring the child maintains the specified format.
-    
-    Inputs:
-    - parent1: 3D matrix with 5 elements as described.
-    - parent2: 3D matrix with 5 elements as described.
-
-    Output:
-    - child: 3D matrix with the same structure and valid values as the parents.
-    """
-    child = []
-
-    # CR0: A list with specific value ranges and binary elements
-    CR0 = []
-    for i in range(len(parent1[0])):
-        if i in {2, 4}:  # Binary values (0 or 1)
-            CR0.append(random.choice([parent1[0][i], parent2[0][i]]))  # Randomly pick from parents
-        else:  # Values in a range (e.g., 4-30)
-            alpha = random.uniform(0, 1)
-            CR0.append(alpha * parent1[0][i] + (1 - alpha) * parent2[0][i])  # Weighted average
-    child.append(CR0)
-
-    # CR1, CR2, CR3, and CR4: Use matrix operations for efficient crossover
-    for i, (p1, p2) in enumerate([parent1[1], parent1[2], parent[3], parent1[4]]):
-        alpha = np.random.uniform(0, 1, len(p1))  # Vector of random alpha values
-        child_segment = alpha * np.array(p1) + (1 - alpha) * np.array(p2)
-        child_segment = np.clip(child_segment, 0.01, 0.1)  # Ensure values stay within bounds
-        child.append(child_segment.tolist())
-
-    return child
-
+    child1 = []
+    child2 = []
+    for i in range(len(parent1)):
+        n = random.randint(0, len(parent1[i]))
+        print(n,i)
+        child1.append(np.concatenate((parent1[i][0:n], parent2[i][n:])))
+        child2.append(np.concatenate((parent2[i][0:n], parent1[i][n:])))
+    return(child1, child2)
 
 # Function to mutate chromosomes 1-4
 def mutate14(chromosome, mutation_rate, lower_bound, upper_bound):
