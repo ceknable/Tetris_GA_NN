@@ -4,7 +4,7 @@ Created on Sat Nov 30 19:59 2024
 @author: KingRamenXIV
 """
 import gymnasium as gym
-from Featurization import featurization.featurization
+from Featurization/featurization import featurization
 
 def initialize_board():
     ''' 
