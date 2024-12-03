@@ -29,19 +29,9 @@ plt.ylabel('Fitness')
 plt.savefig(name+'.jpeg', format='jpeg', dpi=300)
 plt.show()
 
-
-# Save Results
-class MyClass:
-    def __init__(self, value):
-        self.value = value
-
-# Create an instance of MyClass
-my_object = MyClass(genchamps)
-
-# Save the object to a file
+# Save file
 with open(name+'.pkl', 'wb') as f:
-    pickle.dump(my_object, f)
-    
+    pickle.dump(genchamps, f)
 
 #print(f"\nBest brain: {best_brain}, Fitness: {best_fitness}")
 
