@@ -21,7 +21,7 @@ def Rand_CRs(low_bound = -10, up_bound = 10):
     CR1 = np.zeros([100,201])
     CR2 = np.zeros([100,101])
     CR3 = CR2
-    CR4 = np.zeros([4,31])
+    CR4 = np.zeros([6,101])
     
     # Loop through each chromosome and generate random vector of specified length
     for i in range(len(CR1)):
