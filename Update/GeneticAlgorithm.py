@@ -317,7 +317,7 @@ def genetic_algorithm(population_size, generations, mutation_rate_0, mutation_ra
         new_population.append(parent3)
         
         # Insert Historical best Parent after Generation 0
-        if z == 0:
+        if z == 2:
             with open('MASTER.pkl', 'rb') as f:
                 champchamps = pickle.load(f)
                 print("Loaded data from MASTER")
